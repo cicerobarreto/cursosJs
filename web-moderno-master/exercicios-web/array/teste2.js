@@ -1,1 +1,12 @@
-console.log("Hello World")
+const carrinho = [
+    '{ "nome": "Borracha", "preco": 3.45 }',
+    '{ "nome": "Caderno", "preco": 13.90 }',
+    '{ "nome": "Kit de Lapis", "preco": 41.22 }',
+    '{ "nome": "Caneta", "preco": 7.50 }'
+]
+
+const funcao = e => console.log(e)
+let resultado = carrinho.map(funcao)
+//console.log(resultado)
+
+
