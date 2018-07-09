@@ -14,9 +14,15 @@
 
         const divs = document.getElementsByTagName('div')
         Array.from(divs).forEach(e => e.classList.remove('destaque'))
-
+        
         const divsArray = [...divs]
         divsArray.forEach(e => e.classList.add('destaque'))
+
+        const utimosElementos = document.getElementsByClassName('ultimo')
+
+        for (const elemento of utimosElementos) {
+            elemento.classList.remove('destaque')
+        }
     </script>
 </body>
 </html>
