@@ -1,13 +1,13 @@
 const webpack = require('webpack')
 
 module.exports = {
-    entry: './ex/index.jsx',
+    entry: './ex.1/index.jsx',
     output: {
         path: __dirname + '/public',
         filename: './bundle.js'
     },
     devServer: {
-        port: 8080,
+        port: 8081,
         contentBase: './public',
     },
     // Adicionado no ex.3
