@@ -9,20 +9,20 @@
 
 <body class="conteudo exercicio">
     <div>
-        <!--onclick="navergarEm5s(event)"-->
-        <a id='link' href="https://google.com.br">Google</a>
-    </div>
-    <script>
-        function navergarEm5s(e) {
-            e.preventDefault();
-            console.log('entrou');
-            setTimeout(() => {
-                const link = e.target;
-                window.location.href = link.href
-            }, 5000)
-        }
+<!--onclick="navergarEm5s(event)"-->
+<a id='link' href="https://google.com.br">Google</a>
+</div>
+<script>
+    function navergarEm5s(e) {
+        e.preventDefault();
+        console.log('entrou');
+        setTimeout(() => {
+            const link = e.target;
+            window.location.href = link.href
+        }, 5000)
+    }
 
-        const a = document.querySelector('#link')
-        a.onclick = navergarEm5s
+    const a = document.querySelector('#link')
+    a.onclick = navergarEm5s
     </script>
 </body>
