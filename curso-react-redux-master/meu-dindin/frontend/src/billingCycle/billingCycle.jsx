@@ -4,7 +4,9 @@ import ContentHeader from '../common/template/contentHeader'
 import Content from '../common/template/content'
 import Tabs from '../common/tab/tabs'
 import TabsHeader from '../common/tab/tabsHeader'
+import TabHeader from '../common/tab/tabHeader'
 import TabsContent from '../common/tab/tabsContent'
+
 
 class BillingCycle extends Component {
 
@@ -12,14 +14,17 @@ class BillingCycle extends Component {
 
         return (
             <div>
-                <ContentHeader title='Ciclos de Pagamento' small='Cadastro'/>
+                <ContentHeader title='Ciclos de Pagamento' small='Cadastro' />
                 <Content>
                     <Tabs>
                         <TabsHeader>
-
+                            <TabHeader label='Listar' icon='bars' target='tabList' />
+                            <TabHeader label='Incluir' icon='plus' target='tabCreate' />
+                            <TabHeader label='Alterar' icon='pencil' target='tabUpdate' />
+                            <TabHeader label='Excluir' icon='trash-o' target='tabDelete' />
                         </TabsHeader>
                         <TabsContent>
-                            
+
                         </TabsContent>
                     </Tabs>
                 </Content>
