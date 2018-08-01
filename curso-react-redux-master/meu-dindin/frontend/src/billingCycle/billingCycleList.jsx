@@ -32,5 +32,6 @@ class BillingCycleList extends Component {
     }
 }
 
+const mapStateToProps = state => ({list: state.billingCycleReducer.list})
 const mapDispatchToProps = dispatch => bindActionCreators({getList}, dispatch)
-export default connect(null, mapDispatchToProps)(BillingCycleList)
+export default connect(mapStateToProps, mapDispatchToProps)(BillingCycleList)
