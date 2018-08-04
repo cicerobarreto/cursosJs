@@ -16,9 +16,7 @@ export function create(values) {
             toastr.success('Sucesso', 'Operação Realizado com sucesso.')
         })
         .catch(e => {
-            // e.response.data.erros.forEach(error => toastr.error('Error', error))
-            console.log(e.response.data.erros);
-            
+            e.response.data.errors.forEach(error => toastr.error('Erro', error))
         })
     return {
         type: 'TEMP'
