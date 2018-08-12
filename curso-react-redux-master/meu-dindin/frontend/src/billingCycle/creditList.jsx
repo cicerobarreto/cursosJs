@@ -6,6 +6,13 @@ import Input from '../common/form/input'
 
 class CreditList extends Component {
 
+    add(index, item = {}) {
+        if (!this.props.readOnly) {
+            console.log(index);
+            
+        }
+    }
+
     renderRows() {
         const list = this.props.list || []
 
@@ -15,6 +22,12 @@ class CreditList extends Component {
                     placeholder='Informe o nome' readOnly={this.props.readOnly} /></td>
                 <td><Field name={`credits[${index}].value`} component={Input} 
                     placeholder='Informe o valor' readOnly={this.props.readOnly} /></td>
+                <td>
+                    <button type='button' className='btn btn-success'
+                        onClick={() => this.add(index + 1 )}>
+                        <i className='fa fa-plus'></i>
+                    </button>
+                </td>
             </tr>
         ))
     }
@@ -29,7 +42,7 @@ class CreditList extends Component {
                             <tr>
                                 <th>Nome</th>
                                 <th>Valor</th>
-                                <th>Ações</th>
+                                <th className='table-actions'>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
