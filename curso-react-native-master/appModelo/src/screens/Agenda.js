@@ -11,10 +11,20 @@ import {
 } from 'react-native'
 import moment from 'moment'
 import 'moment/locale/pt-br'
+import Task from '../components/Task'
 import todayImage from '../../assets/imgs/today.jpg'
 import commonStyles from '../commonStyles'
 
 export default class Agenda extends Component {
+
+    state = {
+        tasks: [
+            {id: Math.random(), desc: 'Comprar curso React', 
+            estimateAt: new Date(), doneAt: new Date() },
+            {id: Math.random(), desc: 'Concluir o curso',
+             estimateAt: new Date(), doneAt: null},
+        ]
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -28,9 +38,9 @@ export default class Agenda extends Component {
                     </View>
                 </ImageBackground>
                 <View style={styles.taksContainer}>
-                    <Text> Tarefa 1 </Text>
-                    <Text> Tarefa 2 </Text>
-                    <Text> Tarefa 2 </Text>
+                    <FlatList data={this.state.tasks}
+                        keyExtractor={item => `${item.id}`}
+                        renderItem={({ item }) => <Task {...item} />} />
                 </View>                
             </View >
         )
