@@ -11,11 +11,11 @@ import {
 } from 'react-native'
 import moment from 'moment'
 import 'moment/locale/pt-br'
+import 'react-native-action-button'
 import todayImage from '../../assets/imgs/today.jpg'
 import commonStyles from '../commonStyles'
 import Task from '../components/Task'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import ActionButton from 'react-native-action-button'
 import AddTask from './AddTask'
 
 export default class Agenda extends Component {
