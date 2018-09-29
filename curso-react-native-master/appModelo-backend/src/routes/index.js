@@ -7,7 +7,7 @@ const authRoute = require('./authRoute')
 const oapi = express.Router()
 oapi.post('/login', authRoute.login)
 oapi.post('/validateToken', authRoute.validateToken)
-oapi.post('/sign', authRoute.save)
+oapi.post('/signup', authRoute.save)
 
 /**
  * Rotas seguras

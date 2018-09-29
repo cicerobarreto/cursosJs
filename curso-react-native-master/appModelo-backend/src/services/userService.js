@@ -5,8 +5,8 @@ const findByUsername = name => {
 }
 
 const insert = async (user) => {
-    const result = await User.collection.insertOne(user)
-    return result
+    await User.collection.insertOne(user)
+    return user
 }
 
 module.exports = { findByUsername, insert }
