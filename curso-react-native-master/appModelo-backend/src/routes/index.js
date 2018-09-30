@@ -1,5 +1,6 @@
 const express = require('express')
 const authRoute = require('./authRoute')
+const taskRoute = require('./taskRoute')
 
 /*
  * Rotas abertas
@@ -14,5 +15,8 @@ oapi.post('/signup', authRoute.save)
  */
 const api = express.Router()
 api.use(authRoute.auth)
+api.use('/tasks',taskRoute.findByDate)
+api.use('/insertTask',taskRoute.insert)
+api.use('/removeTask',taskRoute.remove)
 
 module.exports = { oapi, api }
