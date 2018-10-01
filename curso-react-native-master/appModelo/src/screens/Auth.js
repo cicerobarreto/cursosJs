@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import commonStyles from '../commonStyles'
 import backgroundImage from '../../assets/imgs/login.jpg'
+import AuthInput from '../components/AuthInput'
 
 export default class Auth extends Component {
     state = {
@@ -37,14 +38,14 @@ export default class Auth extends Component {
                         {this.state.stageNew ? 
                             'Criar a conta' : 'Informar seus dados'}
                     </Text>
-                    <TextInput placeholder='Nome' style={styles.inout}
+                    <AuthInput icon='user' placeholder='Nome' style={styles.inout}
                             value={this.state.name}
                             onChangeText={name => this.setState({name})}/>
-                    <TextInput placeholder='Senha' style={styles.inout}
+                    <AuthInput icon='lock' secureTextEntry={true} placeholder='Senha' style={styles.inout}
                             value={this.state.password}
                             onChangeText={password => this.setState({password})}/>
                     {this.state.stageNew &&
-                        <TextInput placeholder='Confirmar Senha' style={styles.inout}
+                        <AuthInput icon='asterisk' secureTextEntry={true} placeholder='Confirmar Senha' style={styles.inout}
                         value={this.state.confirmPassword}
                         onChangeText={confirmPassword => this.setState({confirmPassword})}/> }
 
