@@ -50,8 +50,6 @@ const obterHash = (password, callback) => {
 }
 
 const save = (req, res) => {
-	console.log(`Senha antes: ${req.body.password}`);
-
 	obterHash(req.body.password, hash => {
 		const password = hash
 		serviceUser.insert({ username: req.body.username, password: password })

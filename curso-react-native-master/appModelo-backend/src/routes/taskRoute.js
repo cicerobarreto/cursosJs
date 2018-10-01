@@ -14,7 +14,9 @@ const findByDate = (req, res) => {
 
     const date = dateFiltro ? dateFiltro 
         : moment().endOf('day').toDate()
-
+    
+    console.log(`Data Filtrada: ${date}`);
+    
     serviceTask.findByDate(date)
     .then(result => respondSuccess(res, 200, result))
     .catch(err => respondErr(res, 500, { errors: [`Consultar o task: ${err} `] }))
