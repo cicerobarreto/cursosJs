@@ -26,7 +26,7 @@ export default class AddTask extends Component {
     getInitialState = () => {
         return {
             desc: '',
-            date: new Date()
+            estimateAt: new Date()
         }
     }
 
@@ -42,14 +42,14 @@ export default class AddTask extends Component {
 
     handleDateAndroidChanged = () => {
         DatePickerAndroid.open({
-            date: this.state.date
+            estimateAt: this.state.estimateAt
         }).then(e => {
             if (e.action !== DatePickerAndroid.dismissedAction) {
-                const momentDate = moment(this.state.date)
+                const momentDate = moment(this.state.estimateAt)
                 momentDate.date(e.day)
                 momentDate.month(e.month)
                 momentDate.year(e.year)
-                this.setState({ date: momentDate.toDate() })
+                this.setState({ estimateAt: momentDate.toDate() })
             }
         })
     }
@@ -63,7 +63,7 @@ export default class AddTask extends Component {
             datePicker = (
                 <TouchableOpacity onPress={this.handleDateAndroidChanged}>
                     <Text style={styles.date}>
-                        {moment(this.state.date).format('ddd, D [de] MMMM [de] YYYY')}
+                        {moment(this.state.estimateAt).format('ddd, D [de] MMMM [de] YYYY')}
                     </Text>
                 </TouchableOpacity>
             )

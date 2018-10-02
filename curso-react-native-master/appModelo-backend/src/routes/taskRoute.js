@@ -5,7 +5,6 @@ const services = require('../services')
 const serviceTask = services.taskService
 
 const findByDate = (req, res) => {
-    console.log(`Data Filtrada: ${req.query.date}`);
     let dataExclusao = req.query.date;
     let arrDataExclusao = dataExclusao.split('/');
 
@@ -16,8 +15,6 @@ const findByDate = (req, res) => {
     const date = dateFiltro ? dateFiltro 
         : moment().endOf('day').toDate()
     
-    console.log(`Data Filtrada: ${date}`);
-    
     serviceTask.findByDate(date)
     .then(result => {console.log(result);
      respondSuccess(res, 200, result) })
@@ -25,8 +22,9 @@ const findByDate = (req, res) => {
 }
 
 const insert = (req, res) => {
-
     let dataExtimada = req.body.estimateAt || null;
+    dataExtimada = moment(dataExtimada).format('DD/MM/YYYY')
+    console.log(`Dado sendo inserido: ${dataExtimada}`);
     let estimateAt = null
     if (dataExtimada) {
         let arrDataExtimada = dataExtimada.split('/');

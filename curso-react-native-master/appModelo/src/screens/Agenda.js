@@ -6,6 +6,7 @@ import {
     ImageBackground,
     FlatList,
     TouchableOpacity,
+    Alert,
     //AsyncStorage,
     Platform
 } from 'react-native'
@@ -42,17 +43,13 @@ export default class Agenda extends Component {
         }
     }
 
-    addTask = task => {
-        const tasks = [...this.state.tasks]
-        tasks.push({
-            id: Math.random(),
-            desc: task.desc,
-            estimateAt: task.date,
-            doneAt: null
-        })
+    addTask = async task => {
+        
+        
+        await axios.post(`${server}/api/insertTask`,{...task})
 
-        this.setState({ tasks, showAddTask: false }
-            , this.filterTasks)
+        this.setState({ showAddTask: false })
+        this.loadTasks()
     }
 
     deleteTask = id => {
