@@ -28,12 +28,12 @@ export default props => {
     const descStyle = props.doneAt !== null ? 
         { textDecorationLine: 'line-through' } : {}
 
-        const leftContent = (
-            <View style={styles.exclude}>
-                <Icon name='trash' size={20} color='#FFF' />
-                <Text style={styles.excludeText}>Excluir</Text>
-            </View>
-        )
+    const leftContent = (
+        <View style={styles.exclude}>
+            <Icon name='trash' size={20} color='#FFF' />
+            <Text style={styles.excludeText}>Excluir</Text>
+        </View>
+    )
     
     const rightContent = [
         <TouchableOpacity

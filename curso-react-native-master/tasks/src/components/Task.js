@@ -14,6 +14,7 @@ import Swipeable from 'react-native-swipeable'
 
 export default props => {
     let check = null
+    
     if (props.doneAt !== null) {
         check = (
             <View style={styles.done}>

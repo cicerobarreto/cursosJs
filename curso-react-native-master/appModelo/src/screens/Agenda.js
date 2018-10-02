@@ -68,7 +68,6 @@ export default class Agenda extends Component {
             const pending = task => task.doneAt === null
             visibleTasks = this.state.tasks.filter(pending)
         }
-        console.warn(`${visibleTasks}`);
         
         this.setState({ visibleTasks })
         //AsyncStorage.setItem('tasks', JSON.stringify(this.state.tasks))
@@ -121,7 +120,7 @@ export default class Agenda extends Component {
                 <View style={styles.taksContainer}>
                     <FlatList data={this.state.visibleTasks}
                         keyExtractor={item => `${item.id}`}
-                        renderItem={({ item }) =>
+                        renderItem={({ item }) => 
                             <Task {...item} onToggleTask={this.toggleTask}
                                 onDelete={this.deleteTask} />} />
                 </View>

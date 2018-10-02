@@ -26,17 +26,29 @@ const findByDate = (req, res) => {
 
 const insert = (req, res) => {
 
-    let dataExclusao = req.body.estimateAt;
-    let arrDataExclusao = dataExclusao.split('/');
+    let dataExtimada = req.body.estimateAt || null;
+    let estimateAt = null
+    if (dataExtimada) {
+        let arrDataExtimada = dataExtimada.split('/');
+        let stringFormatada = arrDataExtimada[1] + '-' + arrDataExtimada[0] + '-' +
+        arrDataExtimada[2];
+        estimateAt = new Date(stringFormatada);
+    }
 
-    let stringFormatada = arrDataExclusao[1] + '-' + arrDataExclusao[0] + '-' +
-    arrDataExclusao[2];
-    let date = new Date(stringFormatada);
-    console.log(`data formatada: ${date}`);
+    let dataDoneAt = req.body.doneAt || null;
+    let doneAt = null
+    if (dataDoneAt) {
+        let arrDataDoneAt = dataDoneAt.split('/');
+        let stringFormatadaDone = arrDataDoneAt[1] + '-' + arrDataDoneAt[0] + '-' +
+        arrDataDoneAt[2];
+        doneAt = new Date(stringFormatadaDone);
+    }
+
     serviceTask.insert(
         {
             desc: req.body.desc,
-            estimateAt: date
+            estimateAt: estimateAt,
+            doneAt: doneAt
         }
     )
     .then(result => respondSuccess(res, 200, result))
