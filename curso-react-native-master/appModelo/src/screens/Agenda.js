@@ -33,15 +33,10 @@ export default class Agenda extends Component {
     loadTasks = async () => {
         try {
             let dataExclusao = moment().format('DD/MM/YYYY')
-            console.warn(`data antes formatar: ${dataExclusao.toString()}`);
-            let stringDate = dataExclusao.toString()
-            let arrDataExclusao = stringDate.split('/')
-            let stringFormatada = arrDataExclusao[1] + '-' + arrDataExclusao[0] + '-' 
-                + arrDataExclusao[2];
-            let date = new Date(stringFormatada);
-            console.warn(`data enviada: ${date}`);
-            const res = await axios.get(`${server}/tasks?date${date}`)
-            this.setState({ tasl: res.data }, this.filterTasks)
+            const res = await axios.get(`${server}/api/tasks?date=${dataExclusao}`)
+            this.setState({ tasks: res.data })
+            this.filterTasks()
+            
         } catch (error) {
             showError(error)
         }
@@ -73,6 +68,8 @@ export default class Agenda extends Component {
             const pending = task => task.doneAt === null
             visibleTasks = this.state.tasks.filter(pending)
         }
+        console.warn(`${visibleTasks}`);
+        
         this.setState({ visibleTasks })
         //AsyncStorage.setItem('tasks', JSON.stringify(this.state.tasks))
     }
