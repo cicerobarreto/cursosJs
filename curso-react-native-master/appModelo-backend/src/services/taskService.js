@@ -3,7 +3,7 @@ const { Task } = require('../models')
 const findByDate = date => {
     console.log(`data no service: ${date}`);
     
-    return Task.find({ estimateAt: date })
+    return Task.find({ estimateAt: { $gte: date} })
 }
 
 const insert = async (task) => {

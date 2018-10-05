@@ -90,7 +90,7 @@ export default class Agenda extends Component {
             }
             return task
         })
-        this.setState({ tasks }, this.filterTasks)
+        this.setState({ tasks }, this.loadTasks)
     }
 
     render() {
