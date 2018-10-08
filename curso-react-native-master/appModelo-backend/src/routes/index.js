@@ -17,6 +17,7 @@ const api = express.Router()
 api.use(authRoute.auth)
 api.use('/tasks',taskRoute.findByDate)
 api.use('/insertTask',taskRoute.insert)
+api.use('/updateTask',taskRoute.update)
 api.use('/removeTask',taskRoute.remove)
 
 module.exports = { oapi, api }

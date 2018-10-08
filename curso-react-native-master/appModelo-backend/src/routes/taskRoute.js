@@ -16,15 +16,28 @@ const findByDate = (req, res) => {
         : moment().endOf('day').toDate()
     
     serviceTask.findByDate(date)
-    .then(result => {console.log(result);
-     respondSuccess(res, 200, result) })
+    .then(result => respondSuccess(res, 200, result))
     .catch(err => respondErr(res, 500, { errors: [`Consultar o task: ${err} `] }))
+}
+
+const update = (req, res) => {
+    let dataExtimada = req.body.doneAt || null;
+    dataExtimada = moment(dataExtimada).format('DD/MM/YYYY')
+    let doneAt = null
+    if (dataExtimada) {
+        let arrDataExtimada = dataExtimada.split('/');
+        let stringFormatada = arrDataExtimada[1] + '-' + arrDataExtimada[0] + '-' +
+        arrDataExtimada[2];
+        doneAt = new Date(stringFormatada);
+    }
+    serviceTask.update({...req.body, doneAt: doneAt})
+    .then(result => respondSuccess(res, 200, result))
+    .catch(err => respondErr(res, 500, { errors: [`Atualizar a task: ${err} `] }))
 }
 
 const insert = (req, res) => {
     let dataExtimada = req.body.estimateAt || null;
     dataExtimada = moment(dataExtimada).format('DD/MM/YYYY')
-    console.log(`Dado sendo inserido: ${dataExtimada}`);
     let estimateAt = null
     if (dataExtimada) {
         let arrDataExtimada = dataExtimada.split('/');
@@ -54,21 +67,10 @@ const insert = (req, res) => {
 }
 
 const remove = (req, res) => {
-    
-    let dataExclusao = req.body.estimateAt;
-    let arrDataExclusao = dataExclusao.split('/');
-
-    let stringFormatada = arrDataExclusao[1] + '-' + arrDataExclusao[0] + '-' +
-    arrDataExclusao[2];
-    let date = new Date(stringFormatada);
-    console.log(`data formatada: ${date}`);
-    serviceTask.remove(
-        {
-            desc: req.body.desc,
-            estimateAt: date
-        }
-    ).then(result => respondSuccess(res, 200, result))
+    console.log(`Removendo...`)
+    serviceTask.remove({...req.body})
+    .then(result => respondSuccess(res, 200, result))
     .catch(err => respondErr(res, 500, { errors: [`Consultar o task: ${err} `] }))
 }
 
-module.exports = { findByDate, insert, remove }
+module.exports = { findByDate, insert, update, remove }

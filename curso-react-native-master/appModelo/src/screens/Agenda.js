@@ -45,16 +45,28 @@ export default class Agenda extends Component {
 
     addTask = async task => {
         
-        
         await axios.post(`${server}/api/insertTask`,{...task})
-
         this.setState({ showAddTask: false })
         this.loadTasks()
     }
 
-    deleteTask = id => {
-        const tasks = this.state.tasks.filter(task => task.id !== id)
-        this.setState({ tasks }, this.filterTasks)
+    updateTask = async task => {
+        await axios.post(`${server}/api/updateTask`,{...task})
+        this.setState({ showAddTask: false })
+        this.loadTasks()
+    }
+
+    deleteTask = async id => {
+
+        this.state.tasks.forEach(task => {
+            console.warn("teste");
+            
+        })
+
+        /*const task = this.state.tasks.filter(task => task._id === id)
+        await axios.post(`${server}/api/removeTask`,{...task})
+        this.setState({ showAddTask: false })
+        this.loadTasks()*/
     }
 
     filterTasks = () => {
@@ -84,13 +96,14 @@ export default class Agenda extends Component {
 
     toggleTask = id => {
         const tasks = this.state.tasks.map(task => {
-            if (task.id === id) {
+            if (task._id === id) {
                 task = { ...task }
-                task.doneAt = task.doneAt ? null : new Date()
+                task.doneAt = task.doneAt ? null : moment().format('DD/MM/YYYY')
+                this.updateTask(task)
             }
             return task
         })
-        this.setState({ tasks }, this.loadTasks)
+        this.loadTasks()
     }
 
     render() {
@@ -116,7 +129,7 @@ export default class Agenda extends Component {
                 </ImageBackground>
                 <View style={styles.taksContainer}>
                     <FlatList data={this.state.visibleTasks}
-                        keyExtractor={item => `${item.id}`}
+                        keyExtractor={item => `${item._id}`}
                         renderItem={({ item }) => 
                             <Task {...item} onToggleTask={this.toggleTask}
                                 onDelete={this.deleteTask} />} />

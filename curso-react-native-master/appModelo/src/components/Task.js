@@ -38,17 +38,17 @@ export default props => {
     const rightContent = [
         <TouchableOpacity
             style={[styles.exclude, { justifyContent: 'flex-start', paddingLeft: 20 }]}
-            onPress={() => props.onDelete(props.id)}>
+            onPress={() => props.onDelete(props._id)}>
             <Icon name='trash' size={30} color='#FFF' />
         </TouchableOpacity>,
     ]
 
     return (
         <Swipeable leftActionActivationDistance={200}
-            onLeftActionActivate={() => props.onDelete(props.id)}
+            onLeftActionActivate={() => props.onDelete(props._id)}
             leftContent={leftContent} rightButtons={rightContent}>
             <View style={styles.container}>
-                <TouchableWithoutFeedback onPress={() => props.onToggleTask(props.id)}>
+                <TouchableWithoutFeedback onPress={() => props.onToggleTask(props._id)}>
                     <View style={styles.checkContainer}>{check}</View>
                 </TouchableWithoutFeedback>
                 <View>
