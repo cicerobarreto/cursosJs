@@ -56,11 +56,14 @@ export default class Agenda extends Component {
         this.loadTasks()
     }
 
-    deleteTask = async id => {
+    deleteTask = id => {
 
-        this.state.tasks.forEach(task => {
-            console.warn("teste");
-            
+        this.state.tasks.forEach( async task => {
+            if (task._id === id ) {
+                await axios.post(`${server}/api/removeTask`,{...task})
+                this.setState({ showAddTask: false })
+                this.loadTasks()
+            }
         })
 
         /*const task = this.state.tasks.filter(task => task._id === id)
