@@ -147,6 +147,9 @@ export default class Agenda extends Component {
                 <ImageBackground source={image}
                     style={styles.background}>
                     <View style={styles.iconBar}>
+                        <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+                            <Icon name='bars' size={20} color={commonStyles.colors.secondary} />
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={this.toggleFilter}>
                             <Icon name={this.state.showDoneTasks ? 'eye' : 'eye-slash'}
                                 size={20} color={commonStyles.colors.secondary} />
@@ -205,6 +208,6 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === 'ios' ? 30 : 10,
         marginHorizontal: 20,
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
     }
 })
