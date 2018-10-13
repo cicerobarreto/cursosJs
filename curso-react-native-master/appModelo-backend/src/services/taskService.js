@@ -2,7 +2,7 @@ const { Task } = require('../models')
 const ObjectId = require('mongodb').ObjectID;
 
 const findByDate = date => {
-    return Task.find({ estimateAt: { $gte: date} })
+    return Task.find({ estimateAt: { $lte: date} })
 }
 
 const insert = async (task) => {
