@@ -5,32 +5,29 @@ import { DrawerItems } from 'react-navigation'
 
 import commonStyles from '../commonStyles'
 
-export default props => {
-    return (
-        <ScrollView>
-            <View style={styles.header}>
-                <Text style={styles.title}> Tasks </Text>
-                <Gravatar style={styles.avatar}
-                    options={{
-                        email: props.navigation.getParam('email'),
-                        secure: true 
-                    }} />
-                <View style={styles.userInfo}>
-                    <View>
-                        <View style={styles.name}>
-                            {props.navigation.getParam('name')}
-                        </View>
-                        <View style={styles.email}>
-                            {props.navigation.getParam('email')}
-                        </View>
+export default props => 
+    <ScrollView>
+        <View style={styles.header}>
+            <Text style={styles.title}> Tasks </Text>
+            <Gravatar style={styles.avatar}
+                options={{
+                    email: props.navigation.getParam('email'),
+                    secure: true 
+                }} />
+            <View style={styles.userInfo}>
+                <View>
+                    <View style={styles.name}>
+                        <Text>{props.navigation.getParam('username')}</Text>
+                    </View>
+                    <View style={styles.email}>
+                        <Text>{props.navigation.getParam('email')}</Text>
                     </View>
                 </View>
             </View>
-            <DrawerItems {...props} />
-        </ScrollView>
-    )
-}
-
+        </View>
+        <DrawerItems {...props} />
+    </ScrollView>
+    
 const styles = StyleSheet.create({
     header: {
         borderBottomWidth: 1,
