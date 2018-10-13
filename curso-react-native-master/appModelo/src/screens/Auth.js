@@ -18,14 +18,16 @@ export default class Auth extends Component {
     state = {
         stageNew: false,
         name: '',
+        email: '',
         password: '',
         confirmPassword: ''
     }
 
-    signin = async () => {
+    signup = async () => {
         try {
             await axios.post(`${server}/signup`, {
                 username: this.state.name,
+                email: this.state.email,
                 password: this.state.password,
                 confirmPassword: this.state.confirmPassword
             })
@@ -37,7 +39,7 @@ export default class Auth extends Component {
         }
     }
 
-    signup = async () => {
+    signin = async () => {
         try {
             const res = await axios.post(`${server}/login`, {
                 username: this.state.name,
@@ -45,7 +47,7 @@ export default class Auth extends Component {
             })
 
             axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
-            this.props.navigation.navigate('Home')
+            this.props.navigation.navigate('Home', res.data)
 
 
         } catch (err) {
@@ -56,9 +58,9 @@ export default class Auth extends Component {
     signinOrSignup = async () => {
         
         if (this.state.stageNew) {
-            this.signin()
-        } else {
             this.signup()
+        } else {
+            this.signin()
         }
     }
 
@@ -66,6 +68,7 @@ export default class Auth extends Component {
         const validations = []
 
         validations.push(this.state.name && this.state.name.trim)
+        {this.state.stageNew && validations.push(this.state.email && this.state.email.trim)}
         validations.push(this.state.password && this.state.password.length >= 5)
 
         if (this.state.stageNew) {
@@ -87,6 +90,12 @@ export default class Auth extends Component {
                     <AuthInput icon='user' placeholder='Nome' style={styles.inout}
                             value={this.state.name}
                             onChangeText={name => this.setState({name})}/>
+
+                    {this.state.stageNew && 
+                        <AuthInput icon='envelope-square' placeholder='email' style={styles.inout}
+                        value={this.state.email}
+                        onChangeText={email => this.setState({email})}/>}
+                    
                     <AuthInput icon='lock' secureTextEntry={true} placeholder='Senha' style={styles.inout}
                             value={this.state.password}
                             onChangeText={password => this.setState({password})}/>

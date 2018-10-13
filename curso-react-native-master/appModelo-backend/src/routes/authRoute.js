@@ -52,7 +52,7 @@ const obterHash = (password, callback) => {
 const save = (req, res) => {
 	obterHash(req.body.password, hash => {
 		const password = hash
-		serviceUser.insert({ username: req.body.username, password: password })
+		serviceUser.insert({ email: req.body.email, username: req.body.username, password: password })
 			.then(result => respondSuccess(res, 200, result))
 			.catch(err => respondErr(res, 500, { errors: [`Erro ao inserir usuário: ${err} `] }))
 	})
