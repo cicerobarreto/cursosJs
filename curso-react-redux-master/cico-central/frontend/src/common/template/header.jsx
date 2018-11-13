@@ -3,10 +3,10 @@ import React from 'react'
 export default props => (
     <header className='main-header'>
         <a href='/#/' className='logo'>
-            <span className='logo-mini'><b>Cic</b></span>
+            <span className='logo-mini'><b>Sibe</b></span>
             <span className='logo-lg'>
                 <i className='fa fa-dashboard'></i>
-                <b>Cico</b>Central
+                <b>Sibe</b>Testes
             </span>
         </a>
         <nav className='navbar navbar-static-top'>
