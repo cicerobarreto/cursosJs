@@ -1,41 +1,55 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { reduxForm } from 'redux-form'
-import TextareaAutosize from 'react-autosize-textarea';
 
-import { processarTest } from './folhaActions'
+import TextareaAutosize from 'react-autosize-textarea';
+import axios from 'axios';
+import { toastr } from 'react-redux-toastr'
+
 import ContentHeader from '../common/template/contentHeader'
 import Content from '../common/template/content'
 import Row from '../common/layout/row'
+
+const BASE_URL = 'http://localhost:3001/folhaProcessar'
 
 class FolhaTest extends Component { 
 
     constructor() {
         super();
         this.state = {
-          selectedFiles: '',
+          selectedFiles: [],
+          resultado: 'Processamento...'
         };
     }
 
     onchange(e) {
         switch (e.target.id) {
             case 'file':
-                this.setState({ selectedFiles: e.target.files });
+                let fd = new FormData()
+                fd.append('files', e.target.files[0], 'files')
+                this.setState({ selectedFiles: fd });
               break;
             default:
                 this.setState({ [e.target.name]: e.target.value });
         }
-                
+        console.log(this.state.selectedFiles);
+        
     }
 
     onSubmit(e) {
         e.preventDefault();
-        this.props.processarTest(this.state.selectedFiles)
+        console.log(this.state.selectedFiles.length);
+        
+        axios.post(`${BASE_URL}`, {selectedFiles: this.state.selectedFiles})
+            .then(resp => {
+                this.setState({resultado: resp.data})
+                toastr.success('Sucesso', resp)                
+            })
+            .catch(e => {
+                console.log(`Error: ${e}`);
+                toastr.error('Erro', e)
+            })
     }
     
     render(){
-        //const {credit, debt} = this.props.summary
         return (
             <div>
                 <ContentHeader title='Teste da folha de Pagamento' small='Versão 1.0' />
@@ -48,7 +62,7 @@ class FolhaTest extends Component {
                                 <label htmlFor="Arquivo">Selecione os arquivos</label>
                                 <input type="file" id="file" multiple onChange={e => this.onchange(e)}/>
                             </div>
-                            <TextareaAutosize rows={10} cols={200} readOnly={true} value={this.props.resultado}/>
+                            <TextareaAutosize rows={10} cols={200} readOnly={true} value={this.state.resultado}/>
                         </div>
                         
                         <div className='box-footer'>
@@ -64,8 +78,4 @@ class FolhaTest extends Component {
     }
 }
 
-FolhaTest = reduxForm({ form: 'folhaTest', destroyOnUnmount: false })(FolhaTest)
-
-const mapStateToProps = state => ({resultado: state.folhaReducer.resultado})
-const mapDispatchToProps = dispatch => bindActionCreators({processarTest}, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(FolhaTest)
+export default FolhaTest
