@@ -23,9 +23,7 @@ class FolhaTest extends Component {
     onchange(e) {
         switch (e.target.id) {
             case 'file':
-                let fd = new FormData()
-                fd.append('files', e.target.files[0], 'files')
-                this.setState({ selectedFiles: fd });
+                this.setState({ selectedFiles: e.target.files });
               break;
             default:
                 this.setState({ [e.target.name]: e.target.value });
@@ -35,10 +33,14 @@ class FolhaTest extends Component {
     }
 
     onSubmit(e) {
+       
         e.preventDefault();
-        console.log(this.state.selectedFiles.length);
+        const { selectedFiles } = this.state;
+        let formData = new FormData();
+
+        formData.append('selectedFile', selectedFiles);
         
-        axios.post(`${BASE_URL}`, {selectedFiles: this.state.selectedFiles})
+        axios.post(`${BASE_URL}`, formData)
             .then(resp => {
                 this.setState({resultado: resp.data})
                 toastr.success('Sucesso', resp)                

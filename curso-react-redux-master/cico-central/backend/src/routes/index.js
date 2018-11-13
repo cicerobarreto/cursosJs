@@ -1,5 +1,7 @@
 const express = require('express')
 const multer = require('multer')
+const uuidv4 = require('uuid/v4');
+const path = require('path');
 
 const authRoute = require('./authRoute')
 const taskRoute = require('./taskRoute')
@@ -7,26 +9,16 @@ const messageRoute = require('./messageRoute')
 const folhaRoute = require('./folhaRoute')
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, join(__dirname, '../../../uploadArq/'));
-        //cb(null, join(__dirname, './uploadImgs/'));
+    destination: (req, file, cb) => {
+      cb(null, './uploads');
     },
-    filename: function (req, file, cb) {
-        cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
-    }
-});
-const fileFilter = (req, file, cb) => {
-    // reject a file
-    
-};
-//var limits = { fileSize: 0.5 * 1024 * 1024 };
-const upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 * 1024
+    filename: (req, file, cb) => {
+      const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
+      cb(null, newFilename);
     },
-    fileFilter: fileFilter,
-});
+  });
+  
+  const upload = multer({ storage });
 
 /*
  * Rotas abertas
@@ -35,7 +27,7 @@ const oapi = express.Router()
 oapi.post('/login', authRoute.login)
 oapi.post('/validateToken', authRoute.validateToken)
 oapi.post('/signup', authRoute.save)
-oapi.post('/folhaProcessar',upload.single('files') ,folhaRoute.processar)
+oapi.post('/folhaProcessar',upload.single('selectedFile') ,folhaRoute.processar)
 
 /**
  * Rotas seguras
