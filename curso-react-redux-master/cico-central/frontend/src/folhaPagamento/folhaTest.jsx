@@ -28,7 +28,6 @@ class FolhaTest extends Component {
             default:
                 this.setState({ [e.target.name]: e.target.value });
         }
-        console.log(this.state.selectedFiles);
         
     }
 
@@ -37,8 +36,8 @@ class FolhaTest extends Component {
         e.preventDefault();
         const { selectedFiles } = this.state;
         let formData = new FormData();
-
-        formData.append('selectedFile', selectedFiles);
+        
+        formData.append('selectedFile', selectedFiles[0]);
         
         axios.post(`${BASE_URL}`, formData)
             .then(resp => {
@@ -46,7 +45,6 @@ class FolhaTest extends Component {
                 toastr.success('Sucesso', resp)                
             })
             .catch(e => {
-                console.log(`Error: ${e}`);
                 toastr.error('Erro', e)
             })
     }
@@ -62,7 +60,7 @@ class FolhaTest extends Component {
                         <div className='box-body'>
                             <div className='form-group'>
                                 <label htmlFor="Arquivo">Selecione os arquivos</label>
-                                <input type="file" id="file" multiple onChange={e => this.onchange(e)}/>
+                                <input type="file" id="file" onChange={e => this.onchange(e)}/>
                             </div>
                             <TextareaAutosize rows={10} cols={200} readOnly={true} value={this.state.resultado}/>
                         </div>
